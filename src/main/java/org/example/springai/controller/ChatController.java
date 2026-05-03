@@ -1,6 +1,7 @@
 package org.example.springai.controller;
 
 import org.example.springai.model.GetCapitalRequest;
+import org.example.springai.model.GetCapitalResponse;
 import org.example.springai.model.Query;
 import org.example.springai.model.Response;
 import org.example.springai.service.OpenAIService;
@@ -13,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChatController {
 
     private  final OpenAIService openAIService;
-    private final OpenAiChatProperties openAiChatProperties;
+    //private final OpenAiChatProperties openAiChatProperties;
 
     public ChatController(OpenAIService openAIService, OpenAiChatProperties openAiChatProperties) {
         this.openAIService = openAIService;
-        this.openAiChatProperties = openAiChatProperties;
+        //this.openAiChatProperties = openAiChatProperties;
     }
 
     @PostMapping("/chat")
@@ -28,5 +29,20 @@ public class ChatController {
     @PostMapping("/capital")
     public Response captialQuery(@RequestBody GetCapitalRequest getCapitalRequest){
         return openAIService.getCapital(getCapitalRequest);
+    }
+
+    @PostMapping("/capitalInfo")
+    public Response captialWithInfoQuery(@RequestBody GetCapitalRequest getCapitalRequest){
+        return openAIService.getCapitalWithInfo(getCapitalRequest);
+    }
+
+    @PostMapping("/capitalJSON")
+    public Response captialInJSON(@RequestBody GetCapitalRequest getCapitalRequest){
+        return openAIService.getCapitalJSON(getCapitalRequest);
+    }
+
+    @PostMapping("/capital/format")
+    public GetCapitalResponse captialInGivenFormat(@RequestBody GetCapitalRequest getCapitalRequest){
+        return openAIService.getCapitalInGivenFormat(getCapitalRequest);
     }
 }
